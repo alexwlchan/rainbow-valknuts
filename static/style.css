@@ -10,6 +10,7 @@ p {
   text-align: center;
   color: white;
   font: 1.4em monospace;
+  line-height: 1.35em;
 }
 
 a {

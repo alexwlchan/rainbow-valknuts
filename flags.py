@@ -86,7 +86,7 @@ flags = {
         "stripes": pastelise(["#B999DD", "#FEFEFE", "#6A8C3A"]),
         "url": "https://en.wikipedia.org/wiki/Genderqueer",
     },
-    "non_binary": {
+    "non-binary": {
         "stripes": pastelise(["#FDF333", "#FEFEFE", "#9858CF", "#2D2D2D"]),
         "url": "https://en.wikipedia.org/wiki/Non-binary_gender",
     },
