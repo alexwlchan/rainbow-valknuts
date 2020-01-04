@@ -143,55 +143,67 @@ def draw_valknut(bar_width, gap_width, stripes):
             yield f'<polygon points="{xy_points}" fill="{fill_color}"/>'
 
 
+def get_valknut_svg(stripe1, stripe2, stripe3):
+    lines = [
+        '<svg viewBox="0 0 900, 400" xmlns="http://www.w3.org/2000/svg">'
+    ]
 
-if __name__ == "__main__":
-    print('<svg viewBox="0 0 900, 600" xmlns="http://www.w3.org/2000/svg">')
+    has_black = any("#000000" in s for s in (stripe1, stripe2, stripe3))
 
-    # select a background fill based on black/white
+    if has_black:
+        background = "#222222"
+    else:
+        background = "black"
 
-    print('<polygon points="0,0 900,0 900,600 0,600" fill="black"/>')
+    lines.extend([
+        f'<polygon points="0,0 900,0 900,600 0,600" fill="{background}"/>',
 
-    print('<g transform="translate(229 460)">')
+        # Centre the valknut on the page by trial and error.
+        '<g transform="translate(229 460)">',
+    ])
 
     bar_width = 50
     gap_width = 10
 
-    for line in draw_valknut(
-        bar_width=bar_width,
-        gap_width=gap_width,
-        stripes=["red", "orange", "yellow", "green", "blue", "purple"]
+    for svg_line in draw_valknut(
+        bar_width=bar_width, gap_width=gap_width, stripes=stripe1
     ):
-        print(line)
+        lines.append(svg_line)
 
     center = xy_position(
         2 * bar_width + 5/3 * gap_width,
         3 * bar_width + (8/3) * gap_width,
     )
 
-    print(f'<g transform="rotate(120 {center})">')
+    lines.append(f'<g transform="rotate(120 {center})">')
 
-    for line in draw_valknut(
-        bar_width=bar_width,
-        gap_width=gap_width,
-        stripes=["purple", "white", "gray", "black"]
+    for svg_line in draw_valknut(
+        bar_width=bar_width, gap_width=gap_width, stripes=stripe2
     ):
-        print(line)
+        lines.append(svg_line)
 
-    print('</g>')
+    lines.append('</g>')
 
-    print(f'<g transform="rotate(240 {center})">')
+    lines.append(f'<g transform="rotate(240 {center})">')
 
-    for line in draw_valknut(
-        bar_width=bar_width,
-        gap_width=gap_width,
-        stripes=["blue", "blue", "purple", "magenta", "magenta"]
+    for svg_line in draw_valknut(
+        bar_width=bar_width, gap_width=gap_width, stripes=stripe3
     ):
-        print(line)
+        lines.append(svg_line)
 
-    print('</g>')
-    print('</g>')
+    lines.append('</g>')
+    lines.append('</g>')
 
-    print(f'<text x="450" y="540" fill="white" font-size="1.5em" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">YOUR COWARDLY BIGOTRY IS AN AFFRONT TO THE ALLFATHER</text>')
+    lines.append('</svg>')
 
-    print("</svg>")
+    return '\n'.join(lines)
 
+
+if __name__ == "__main__":
+    print(
+        get_valknut_svg(
+            stripe1=["red", "orange", "yellow", "green", "blue", "purple"],
+            stripe2=["#5BCEFA", "#F5A9B8", "white", "#F5A9B8", "#5BCEFA"],
+            stripe3=["#000000", "#A3A3A3", "white", "#780378"],
+        )
+    )
