@@ -20,7 +20,10 @@ def xy_position(triangular_x, triangular_y):
     )
 
 
-def draw_valknut_bar(bar_width, gap_width, fill_color, proportion):
+def get_valknut_tri_coordinates(bar_width, gap_width, stripe_count, stripe_index):
+    """
+    Stripes are 1-indexed.
+    """
     # Coordinate axes
     #
     #              (0, t2)
@@ -30,17 +33,16 @@ def draw_valknut_bar(bar_width, gap_width, fill_color, proportion):
     #
     # The shape to be drawn is defined as follows:
     #
-    #
     #                                 (0, 6B+5W)
     #                                      /\
     #
-    #                                 (B, 4B+3W)
+    #                                 (B, 4B+4W)
     #                                      /\
     #
     #                    ..    ..                          ..   ..
     #                   /     /                              \    \
     #                  /     /                                \    \
-    #      (0, 3B+2W) +-----+ (B, 3B+2W)        (2B+2W, 3B+2W) +----+ (3B+2W, 3B+2W)
+    #      (0, 3B+3W) +-----+ (B, 3B+3W)        (2B+2W, 3B+3W) +----+ (3B+2W, 3B+3W)
     #
     #     (0, 2B+W) +-----+ (B, 2B+W)              (3B+3W, 2B+W) +-----+ (4B+3W, 2B+W)
     #              /     /                                        \     \
@@ -50,51 +52,94 @@ def draw_valknut_bar(bar_width, gap_width, fill_color, proportion):
     #          /                                                            \
     #  (0, 0) +--------------------------------------------------------------+ (6B+5W, 0)
     #
+    # But then we need to adjust for the part of the stripe we're drawing.
+    #
+    lower_stripe = (stripe_index - 1) / stripe_count
+    upper_stripe = stripe_index / stripe_count
+
     coordinates_lower = [
-        (0, 0),
-        (6 * bar_width + 5 * gap_width, 0),
-        (4 * bar_width + 3 * gap_width, 2 * bar_width + gap_width),
-        (3 * bar_width + 3 * gap_width, 2 * bar_width + gap_width),
-        (4 * bar_width + 4 * gap_width, bar_width),
-        (bar_width, bar_width),
-        (bar_width, 2 * bar_width + gap_width),
-        (0, 2 * bar_width + gap_width),
+        (
+            lower_stripe * bar_width,
+            lower_stripe * bar_width
+        ),
+        (
+            6 * bar_width + 5 * gap_width - lower_stripe * (2 * bar_width + gap_width),
+            lower_stripe * bar_width
+        ),
+        (
+            4 * bar_width + 3 * gap_width - lower_stripe * bar_width,
+            2 * bar_width + gap_width
+        ),
+        (
+            4 * bar_width + 3 * gap_width - upper_stripe * bar_width,
+            2 * bar_width + gap_width,
+        ),
+        (
+            6 * bar_width + 5 * gap_width - upper_stripe * (2 * bar_width + gap_width),
+            upper_stripe * bar_width,
+        ),
+        (
+            upper_stripe * bar_width,
+            upper_stripe * bar_width
+        ),
+        (
+            upper_stripe * bar_width,
+            2 * bar_width + gap_width
+        ),
+        (
+            lower_stripe * bar_width,
+            2 * bar_width + gap_width
+        ),
     ]
 
     coordinates_upper = [
-        (0, 3 * bar_width + 2 * gap_width),
-        (bar_width, 3 * bar_width + 2 * gap_width),
-        (bar_width, 4 * bar_width + 3 * gap_width),
-        (2 * bar_width + 2 * gap_width, 3 * bar_width + 2 * gap_width),
-        (3 * bar_width + 2 * gap_width, 3 * bar_width + 2 * gap_width),
-        (0, 6 * bar_width + 5 * gap_width),
+        (lower_stripe * bar_width, 3 * bar_width + 3 * gap_width),
+        (upper_stripe * bar_width, 3 * bar_width + 3 * gap_width),
+        (
+            upper_stripe * bar_width,
+            6 * bar_width + 5 * gap_width - upper_stripe * (2 * bar_width + gap_width)
+        ),
+        (
+            3 * bar_width + 2 * gap_width - upper_stripe * bar_width,
+            3 * bar_width + 3 * gap_width
+        ),
+        (
+            3 * bar_width + 2 * gap_width - lower_stripe * bar_width,
+            3 * bar_width + 3 * gap_width
+        ),
+        (
+            lower_stripe * bar_width,
+            6 * bar_width + 5 * gap_width - lower_stripe * (2 * bar_width + gap_width)
+        )
     ]
 
-    xy_coordinates_lower = [
-        xy_position(*triangular_coords)
-        for triangular_coords in coordinates_lower
+    return [
+        coordinates_lower,
+        coordinates_upper,
     ]
 
-    xy_coordinates_upper = [
-        xy_position(*triangular_coords)
-        for triangular_coords in coordinates_upper
-    ]
 
-    xy_points_lower = " ".join(xy_coordinates_lower)
-    xy_points_upper = " ".join(xy_coordinates_upper)
+def draw_valknut_coordinates(tri_coordinates, fill_color):
+    xy_coords = [xy_position(*tri_coords) for tri_coords in tri_coordinates]
+    xy_points = " ".join(xy_coords)
 
-    return f"""
-        <polygon points="{xy_points_lower}" fill="{fill_color}"/>
-        <polygon points="{xy_points_upper}" fill="{fill_color}"/>
-    """
+    print(f'<polygon points="{xy_points}" fill="{fill_color}"/>')
 
 
 if __name__ == "__main__":
-    print(
-        draw_valknut_bar(
+    print('<svg viewBox="0 0 1000, 1000" xmlns="http://www.w3.org/2000/svg">')
+
+    for index, color in enumerate([
+        "red", "orange", "yellow", "green", "blue"
+    ], start=1):
+
+        for tri_coords in get_valknut_tri_coordinates(
             bar_width=100,
             gap_width=10,
-            fill_color="red",
-            proportion=1.0
-        )
-    )
+            stripe_count=6,
+            stripe_index=index
+        ):
+            draw_valknut_coordinates(tri_coords, fill_color=color)
+
+    print("</svg>")
+
