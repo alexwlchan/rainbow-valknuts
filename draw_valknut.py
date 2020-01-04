@@ -9,7 +9,7 @@ def x_component(triangular_x, triangular_y):
 
 
 def y_component(triangular_x, triangular_y):
-    result = triangular_y * math.sin(math.radians(60))
+    result = -triangular_y * math.sin(math.radians(60))
     return "%.6f" % result
 
 
@@ -145,16 +145,16 @@ def draw_valknut(bar_width, gap_width, stripes):
 
 
 if __name__ == "__main__":
-    print('<svg viewBox="0 0 1500, 1100" xmlns="http://www.w3.org/2000/svg">')
+    print('<svg viewBox="0 0 900, 600" xmlns="http://www.w3.org/2000/svg">')
 
     # select a background fill based on black/white
 
-    print('<polygon points="0,0 1500,0 1500,1100 0,1100" fill="black"/>')
+    print('<polygon points="0,0 900,0 900,600 0,600" fill="black"/>')
 
-    print('<g transform="translate(219 59.5)">')
+    print('<g transform="translate(229 460)">')
 
-    bar_width = 120
-    gap_width = 25
+    bar_width = 50
+    gap_width = 10
 
     for line in draw_valknut(
         bar_width=bar_width,
@@ -190,6 +190,8 @@ if __name__ == "__main__":
 
     print('</g>')
     print('</g>')
+
+    print(f'<text x="450" y="540" fill="white" font-size="1.5em" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">YOUR COWARDLY BIGOTRY IS AN AFFRONT TO THE ALLFATHER</text>')
 
     print("</svg>")
 
