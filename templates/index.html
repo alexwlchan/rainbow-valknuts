@@ -42,6 +42,13 @@
     </img>
 
     <p>
+      a mashup of the
+      <a href="{{ flags[0] | url }}">{{ flags[0] | name }}</a>,
+      <a href="{{ flags[1] | url }}">{{ flags[1] | name }}</a> and
+      <a href="{{ flags[2] | url }}">{{ flags[2] | name }}</a> flags
+    </p>
+    <p>
+      <a href="{{ url_for('index', flag_0=flags[0] | name, flag_1=flags[1] | name, flag_2=flags[2] | name)}}">permalink</a> •
       <a href="data:image/svg+xml;base64,{{ svg_xml | base64 }}">download as svg</a>
     </p>
 

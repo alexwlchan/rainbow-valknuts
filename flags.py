@@ -29,57 +29,107 @@ def pastelise(colors):
 
 
 flags = {
-    "rainbow": ["#FF5D7D", "#FF764E", "#FFC144", "#88DF8E", "#00CCF2", "#B278D3"],
-    "ace": pastelise(["#000000", "#A3A3A3", "#DDD", "#810082"]),
-    "agender": pastelise(
-        [
-            "#000000",  # black
-            "#BBC3C6",
-            "#BBC3C6",  # grey
-            "#FEFEFE",
-            "#FEFEFE",  # white
-            "#B7F582",
-            "#B7F582",  # green
-            "#FEFEFE",
-            "#FEFEFE",  # white
-            "#BBC3C6",
-            "#BBC3C6",  # grey
-            "#000000",  # black
-        ]
-    ),
-    "aromantic": pastelise(["#3BA441", "#A8D378", "#FEFEFE", "#A9A9A9", "#000"]),
-    "bear": pastelise(
-        ["#4e2801", "#ca4e05", "#fdd951", "#fde2ac", "#EEE", "#424242", "#000000"]
-    ),
-    "lazy_bi_boy": pastelise(["#D9006F", "#D9006F", "#744D98"]),
-    "lazy_bi_girl": pastelise(["#744D98", "#0033AB", "#0033AB"]),
-    "bi": pastelise(["#D9006F", "#D9006F", "#744D98", "#0033AB", "#0033AB"]),
-    "genderqueer": pastelise(["#B999DD", "#FEFEFE", "#6A8C3A"]),
-    "non_binary": pastelise(["#FDF333", "#FEFEFE", "#9858CF", "#2D2D2D"]),
-    "pan": pastelise(["#FF008E", "#FFD800", "#00B3FF"]),
-    "philly": pastelise(
-        [
-            "#000",
-            "#794F18",
-            "#E40400",
-            "#FE8C00",
-            "#FFED00",
-            "#008126",
-            "#064EFF",
-            "#750687",
-        ]
-    ),
-    "poly": pastelise(["#F71BB9", "#08D569", "#1C91F6"]),
-    "trans": ["#55CDFC", "#F7A8B8", "#DDD", "#F7A8B8", "#55CDFC"],
-    "lesbian": [
-        "#B60063",
-        "#C84896",
-        "#E253AB",
-        "#DDD",
-        "#F0A7D2",
-        "#D73F4F",
-        "#990200",
-    ],
+    "rainbow": {
+        "stripes": ["#FF5D7D", "#FF764E", "#FFC144", "#88DF8E", "#00CCF2", "#B278D3"],
+        "url": "https://en.wikipedia.org/wiki/Rainbow_flag_(LGBT_movement)",
+    },
+    "asexual": {
+        "stripes": pastelise(["#000000", "#A3A3A3", "#DDD", "#810082"]),
+        "url": "https://en.wikipedia.org/wiki/Asexuality",
+    },
+    "agender": {
+        "stripes": pastelise(
+            [
+                "#000000",  # black
+                "#BBC3C6",
+                "#BBC3C6",  # grey
+                "#FEFEFE",
+                "#FEFEFE",  # white
+                "#B7F582",
+                "#B7F582",  # green
+                "#FEFEFE",
+                "#FEFEFE",  # white
+                "#BBC3C6",
+                "#BBC3C6",  # grey
+                "#000000",  # black
+            ]
+        ),
+        "url": "https://en.wikipedia.org/wiki/Agender",
+    },
+    "aromantic": {
+        "stripes": pastelise(["#3BA441", "#A8D378", "#FEFEFE", "#A9A9A9", "#000"]),
+        "url": "https://en.wikipedia.org/wiki/Romantic_orientation#Aromanticism",
+    },
+    "bear": {
+        "stripes": pastelise(
+            ["#4e2801", "#ca4e05", "#fdd951", "#fde2ac", "#EEE", "#424242", "#000000"]
+        ),
+        "url": "https://en.wikipedia.org/wiki/Bear_flag_(gay_culture)",
+    },
+    "lazy bisexual boy": {
+        "stripes": pastelise(["#D9006F", "#D9006F", "#744D98"]),
+        "url": "https://twitter.com/freezydorito/status/1152168216120221697",
+    },
+    "lazy bisexual girl": {
+        "stripes": pastelise(["#744D98", "#0033AB", "#0033AB"]),
+        "url": "https://twitter.com/freezydorito/status/1152168216120221697",
+    },
+    "bi": {
+        "stripes": pastelise(["#D9006F", "#D9006F", "#744D98", "#0033AB", "#0033AB"]),
+        "url": "https://en.wikipedia.org/wiki/Bisexuality",
+    },
+    "genderfluid": {
+        "stripes": pastelise(["#FE75A4", "#FFFFFF", "#A90FC0", "#000000", "#303CBE"]),
+        "url": "https://en.wikipedia.org/wiki/Genderfluid",
+    },
+    "genderqueer": {
+        "stripes": pastelise(["#B999DD", "#FEFEFE", "#6A8C3A"]),
+        "url": "https://en.wikipedia.org/wiki/Genderqueer",
+    },
+    "non_binary": {
+        "stripes": pastelise(["#FDF333", "#FEFEFE", "#9858CF", "#2D2D2D"]),
+        "url": "https://en.wikipedia.org/wiki/Non-binary_gender",
+    },
+    "pansexual": {
+        "stripes": pastelise(["#FF008E", "#FFD800", "#00B3FF"]),
+        "url": "https://en.wikipedia.org/wiki/Pansexuality",
+    },
+    "philly": {
+        "stripes": pastelise(
+            [
+                "#000",
+                "#794F18",
+                "#E40400",
+                "#FE8C00",
+                "#FFED00",
+                "#008126",
+                "#064EFF",
+                "#750687",
+            ]
+        ),
+        "url": "https://en.wikipedia.org/wiki/LGBT_symbols#cite_ref-Philadelphia_93-0",
+        "label": "Philly’s pride flag",
+    },
+    "poly": {
+        "stripes": pastelise(["#F71BB9", "#08D569", "#1C91F6"]),
+        "url": "https://en.wikipedia.org/wiki/Polyamory",
+    },
+    "trans": {
+        "stripes": ["#55CDFC", "#F7A8B8", "#DDD", "#F7A8B8", "#55CDFC"],
+        "url": "https://en.wikipedia.org/wiki/Transgender_flags",
+    },
+    "lesbian": {
+        "stripes": [
+            "#B60063",
+            "#C84896",
+            "#E253AB",
+            "#DDD",
+            "#F0A7D2",
+            "#D73F4F",
+            "#990200",
+        ],
+        "url": "https://en.wikipedia.org/wiki/LGBT_symbols#Lesbianism",
+    },
 }
 
 black_stripe = ["#000000"] * 4
@@ -87,15 +137,18 @@ blue_stripe = ["#0000c0"] * 4
 red_stripe = ["#fb0006"]
 white_stripe = ["#EEE"] * 4
 
-flags["leather"] = pastelise(
-    black_stripe
-    + blue_stripe
-    + red_stripe
-    + black_stripe
-    + blue_stripe
-    + white_stripe
-    + blue_stripe
-    + black_stripe
-    + blue_stripe
-    + black_stripe
-)
+flags["leather"] = {
+    "stripes": pastelise(
+        black_stripe
+        + blue_stripe
+        + red_stripe
+        + black_stripe
+        + blue_stripe
+        + white_stripe
+        + blue_stripe
+        + black_stripe
+        + blue_stripe
+        + black_stripe
+    ),
+    "url": "https://en.wikipedia.org/wiki/Leather_Pride_flag",
+}
