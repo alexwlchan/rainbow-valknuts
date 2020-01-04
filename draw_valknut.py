@@ -20,7 +20,7 @@ def xy_position(triangular_x, triangular_y):
     )
 
 
-def get_valknut_tri_coordinates(bar_width, gap_width, stripe_count, stripe_index):
+def get_valknut_tri_coordinates(bar_width, gap_width, stripe_count, stripe_start, stripe_end):
     """
     Stripes are 1-indexed.
     """
@@ -36,7 +36,7 @@ def get_valknut_tri_coordinates(bar_width, gap_width, stripe_count, stripe_index
     #                                 (0, 6B+5W)
     #                                      /\
     #
-    #                                 (B, 4B+4W)
+    #                                 (B, 4B+5W)
     #                                      /\
     #
     #                    ..    ..                          ..   ..
@@ -44,18 +44,18 @@ def get_valknut_tri_coordinates(bar_width, gap_width, stripe_count, stripe_index
     #                  /     /                                \    \
     #      (0, 3B+3W) +-----+ (B, 3B+3W)        (2B+2W, 3B+3W) +----+ (3B+2W, 3B+3W)
     #
-    #     (0, 2B+W) +-----+ (B, 2B+W)              (3B+3W, 2B+W) +-----+ (4B+3W, 2B+W)
+    #     (0, 2B+W) +-----+ (B, 2B+W)              (3B+4W, 2B+W) +-----+ (4B+4W, 2B+W)
     #              /     /                                        \     \
     #             /     /                                          \     \
     #            /     +--------------------------------------------+     \
-    #           /  (B, B)                                      (4B+4W, B)  \
+    #           /  (B, B)                                      (4B+5W, B)  \
     #          /                                                            \
     #  (0, 0) +--------------------------------------------------------------+ (6B+5W, 0)
     #
     # But then we need to adjust for the part of the stripe we're drawing.
     #
-    lower_stripe = (stripe_index - 1) / stripe_count
-    upper_stripe = stripe_index / stripe_count
+    lower_stripe = (stripe_start - 1) / stripe_count
+    upper_stripe = stripe_end / stripe_count
 
     coordinates_lower = [
         (
@@ -63,19 +63,19 @@ def get_valknut_tri_coordinates(bar_width, gap_width, stripe_count, stripe_index
             lower_stripe * bar_width
         ),
         (
-            6 * bar_width + 5 * gap_width - lower_stripe * (2 * bar_width + gap_width),
+            6 * bar_width + 5 * gap_width - lower_stripe * (2 * bar_width),
             lower_stripe * bar_width
         ),
         (
-            4 * bar_width + 3 * gap_width - lower_stripe * bar_width,
+            4 * bar_width + 4 * gap_width - lower_stripe * bar_width,
             2 * bar_width + gap_width
         ),
         (
-            4 * bar_width + 3 * gap_width - upper_stripe * bar_width,
+            4 * bar_width + 4 * gap_width - upper_stripe * bar_width,
             2 * bar_width + gap_width,
         ),
         (
-            6 * bar_width + 5 * gap_width - upper_stripe * (2 * bar_width + gap_width),
+            6 * bar_width + 5 * gap_width - upper_stripe * (2 * bar_width),
             upper_stripe * bar_width,
         ),
         (
@@ -97,7 +97,7 @@ def get_valknut_tri_coordinates(bar_width, gap_width, stripe_count, stripe_index
         (upper_stripe * bar_width, 3 * bar_width + 3 * gap_width),
         (
             upper_stripe * bar_width,
-            6 * bar_width + 5 * gap_width - upper_stripe * (2 * bar_width + gap_width)
+            6 * bar_width + 5 * gap_width - upper_stripe * (2 * bar_width)
         ),
         (
             3 * bar_width + 2 * gap_width - upper_stripe * bar_width,
@@ -109,7 +109,7 @@ def get_valknut_tri_coordinates(bar_width, gap_width, stripe_count, stripe_index
         ),
         (
             lower_stripe * bar_width,
-            6 * bar_width + 5 * gap_width - lower_stripe * (2 * bar_width + gap_width)
+            6 * bar_width + 5 * gap_width - lower_stripe * (2 * bar_width)
         )
     ]
 
@@ -119,27 +119,77 @@ def get_valknut_tri_coordinates(bar_width, gap_width, stripe_count, stripe_index
     ]
 
 
-def draw_valknut_coordinates(tri_coordinates, fill_color):
-    xy_coords = [xy_position(*tri_coords) for tri_coords in tri_coordinates]
-    xy_points = " ".join(xy_coords)
+def draw_valknut(bar_width, gap_width, stripes):
+    for index, fill_color in enumerate(stripes, start=1):
+        stripe_start = index
+        try:
+            if stripes[index] == fill_color:
+                stripe_end = index + 1
+            else:
+                stripe_end = index
+        except IndexError:
+            stripe_end = index
 
-    print(f'<polygon points="{xy_points}" fill="{fill_color}"/>')
+        for tri_coords in get_valknut_tri_coordinates(
+            bar_width=bar_width,
+            gap_width=gap_width,
+            stripe_count=len(stripes),
+            stripe_start=stripe_start,
+            stripe_end=stripe_end
+        ):
+            xy_coords = [xy_position(*tc) for tc in tri_coords]
+            xy_points = " ".join(xy_coords)
+
+            yield f'<polygon points="{xy_points}" fill="{fill_color}"/>'
+
 
 
 if __name__ == "__main__":
-    print('<svg viewBox="0 0 1000, 1000" xmlns="http://www.w3.org/2000/svg">')
+    print('<svg viewBox="0 0 1500, 1100" xmlns="http://www.w3.org/2000/svg">')
 
-    for index, color in enumerate([
-        "red", "orange", "yellow", "green", "blue"
-    ], start=1):
+    # select a background fill based on black/white
 
-        for tri_coords in get_valknut_tri_coordinates(
-            bar_width=100,
-            gap_width=10,
-            stripe_count=6,
-            stripe_index=index
-        ):
-            draw_valknut_coordinates(tri_coords, fill_color=color)
+    print('<polygon points="0,0 1500,0 1500,1100 0,1100" fill="black"/>')
+
+    print('<g transform="translate(219 59.5)">')
+
+    bar_width = 120
+    gap_width = 25
+
+    for line in draw_valknut(
+        bar_width=bar_width,
+        gap_width=gap_width,
+        stripes=["red", "orange", "yellow", "green", "blue", "purple"]
+    ):
+        print(line)
+
+    center = xy_position(
+        2 * bar_width + 5/3 * gap_width,
+        3 * bar_width + (8/3) * gap_width,
+    )
+
+    print(f'<g transform="rotate(120 {center})">')
+
+    for line in draw_valknut(
+        bar_width=bar_width,
+        gap_width=gap_width,
+        stripes=["purple", "white", "gray", "black"]
+    ):
+        print(line)
+
+    print('</g>')
+
+    print(f'<g transform="rotate(240 {center})">')
+
+    for line in draw_valknut(
+        bar_width=bar_width,
+        gap_width=gap_width,
+        stripes=["blue", "blue", "purple", "magenta", "magenta"]
+    ):
+        print(line)
+
+    print('</g>')
+    print('</g>')
 
     print("</svg>")
 
