@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <style>
+      svg {
+        border: 3px solid white;
+      }
+
+      body {
+        background: blue;
+      }
+
+      p {
+        text-align: center;
+        color: white;
+        font: 1.4em monospace;
+      }
+
+      a {
+        color: #f0e800;
+      }
+
+      a:hover {
+        background: rgba(240, 232, 0, 0.4);
+      }
+    </style>
+
+    <title>rainbow valknuts</title>
+  </head>
+  <body>
+    <p>
+      made by <a href="https://twitter.com/alexwlchan">alexwlchan</a>
+      •
+      based on an idea by <a href="https://twitter.com/KlezmerGryphon/status/1173897515843735553">Evander Pelagius Blackfeather II</a>
+    </p>
+
+    {{ svg_xml | safe }}
+
+    <div class="glitchButton position-x-right position-y-bottom"></div>
+    <script src="https://button.glitch.me/button.js"></script>
+  </body>
+</html>

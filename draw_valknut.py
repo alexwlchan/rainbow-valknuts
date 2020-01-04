@@ -145,7 +145,7 @@ def draw_valknut(bar_width, gap_width, stripes):
 
 def get_valknut_svg(stripe1, stripe2, stripe3):
     lines = [
-        '<svg viewBox="0 0 900, 400" xmlns="http://www.w3.org/2000/svg">'
+        '<svg viewBox="0 0 900, 550" xmlns="http://www.w3.org/2000/svg">'
     ]
 
     has_black = any("#000000" in s for s in (stripe1, stripe2, stripe3))
@@ -159,7 +159,7 @@ def get_valknut_svg(stripe1, stripe2, stripe3):
         f'<polygon points="0,0 900,0 900,600 0,600" fill="{background}"/>',
 
         # Centre the valknut on the page by trial and error.
-        '<g transform="translate(229 460)">',
+        '<g transform="translate(229 450)">',
     ])
 
     bar_width = 50
@@ -193,6 +193,11 @@ def get_valknut_svg(stripe1, stripe2, stripe3):
 
     lines.append('</g>')
     lines.append('</g>')
+
+    lines.append(f'''
+        <text x="450" y="510" fill="white" font-size="1.5em" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif">
+        YOUR COWARDLY BIGOTRY IS AN AFFRONT TO THE ALLFATHER</text>''')
 
     lines.append('</svg>')
 
