@@ -32,12 +32,18 @@
   </head>
   <body>
     <p>
-      made by <a href="https://twitter.com/alexwlchan">alexwlchan</a>
+      made by <a href="https://twitter.com/alexwlchan">@alexwlchan</a>
       •
-      based on an idea by <a href="https://twitter.com/KlezmerGryphon/status/1173897515843735553">Evander Pelagius Blackfeather II</a>
+      based on an idea by <a href="https://twitter.com/KlezmerGryphon/status/1173897515843735553">@KlezmerGryphon</a>
     </p>
 
-    {{ svg_xml | safe }}
+    <img id="flag_svg">
+      {{ svg_xml | safe }}
+    </img>
+
+    <p>
+      <a href="data:image/svg+xml;base64,{{ svg_xml | base64 }}">download as svg</a>
+    </p>
 
     <div class="glitchButton position-x-right position-y-bottom"></div>
     <script src="https://button.glitch.me/button.js"></script>

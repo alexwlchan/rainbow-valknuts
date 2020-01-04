@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import base64
 import random
 
 from flask import Flask, render_template
@@ -9,6 +10,11 @@ from draw_valknut import get_valknut_svg
 
 
 app = Flask(__name__)
+
+
+@app.template_filter("base64")
+def encode_as_base64(xml_string):
+    return base64.b64encode(xml_string.encode("ascii")).decode("ascii")
 
 
 @app.route("/")

@@ -195,7 +195,7 @@ def get_valknut_svg(stripe1, stripe2, stripe3):
     lines.append('</g>')
 
     lines.append(f'''
-        <text x="450" y="510" fill="white" font-size="1.5em" text-anchor="middle"
+        <text x="450" y="512" fill="white" font-size="1.6em" text-anchor="middle"
         font-family="Helvetica, Arial, sans-serif">
         YOUR COWARDLY BIGOTRY IS AN AFFRONT TO THE ALLFATHER</text>''')
 
