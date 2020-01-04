@@ -9,3 +9,5 @@ This is a tiny web app for generating rainbow [valknuts](https://en.wikipedia.or
 It uses some code I wrote last year for [drawing with triangular coordinates in SVG](https://alexwlchan.net/2019/09/triangular-coordinates-in-svg/), then randomly selects three flags to mash up into an image.
 
 The flag definitions are taken from the [QueerJS website](https://queerjs.com/flags).
+
+The app is running at <https://rainbow-valknuts.glitch.me>, and the source code is [on GitHub](https://github.com/alexwlchan/rainbow-valknuts).

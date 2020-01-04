@@ -4,29 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <style>
-      svg {
-        border: 3px solid white;
-      }
-
-      body {
-        background: blue;
-      }
-
-      p {
-        text-align: center;
-        color: white;
-        font: 1.4em monospace;
-      }
-
-      a {
-        color: #f0e800;
-      }
-
-      a:hover {
-        background: rgba(240, 232, 0, 0.4);
-      }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
     <title>rainbow valknuts</title>
   </head>
@@ -49,10 +27,8 @@
     </p>
     <p>
       <a href="{{ url_for('index', flag_0=flags[0] | name, flag_1=flags[1] | name, flag_2=flags[2] | name)}}">permalink</a> •
-      <a href="data:image/svg+xml;base64,{{ svg_xml | base64 }}">download as svg</a>
+      <a href="data:image/svg+xml;base64,{{ svg_xml | base64 }}">download as svg</a> •
+      <a href="https://rainbow-valknuts.glitch.me">source code</a>
     </p>
-
-    <div class="glitchButton position-x-right position-y-bottom"></div>
-    <script src="https://button.glitch.me/button.js"></script>
   </body>
 </html>
