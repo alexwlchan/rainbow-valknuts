@@ -11,3 +11,24 @@ It uses some code I wrote last year for [drawing with triangular coordinates in 
 The flag definitions are taken from the [QueerJS website](https://queerjs.com/flags).
 
 The app is running at <https://rainbow-valknuts.glitch.me>, and the source code is [on GitHub](https://github.com/alexwlchan/rainbow-valknuts).
+
+
+
+## Usage
+
+Clone this repository, then run `start.sh`.
+This will install dependencies, then start the app running on <http://localhost:5000>:
+
+```console
+$ git clone https://github.com/alexwlchan/rainbow-valknuts.git
+$ cd rainbow-valknuts
+$ ./start.sh
+```
+
+You need Python 3 installed.
+
+
+
+## License
+
+MIT.
