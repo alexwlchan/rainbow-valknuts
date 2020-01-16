@@ -110,9 +110,9 @@ flags = {
         "url": "https://en.wikipedia.org/wiki/LGBT_symbols#cite_ref-Philadelphia_93-0",
         "label": "Philly’s pride flag",
     },
-    "poly": {
+    "polysexual": {
         "stripes": pastelise(["#F71BB9", "#08D569", "#1C91F6"]),
-        "url": "https://en.wikipedia.org/wiki/Polyamory",
+        "url": "https://rationalwiki.org/wiki/Polysexuality",
     },
     "trans": {
         "stripes": ["#55CDFC", "#F7A8B8", "#DDD", "#F7A8B8", "#55CDFC"],

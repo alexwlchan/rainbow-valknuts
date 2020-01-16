@@ -30,14 +30,21 @@ def get_url(flag_pair):
     return flag_pair[1]["url"]
 
 
+RENAMED_FLAGS = {
+    # Renamed after I realised the polyamory and polysexual flags are separate.
+    # See https://github.com/queerjs/website/issues/59
+    "poly": "polysexual",
+}
+
+
 @app.route("/")
 def index():
     selected_flags = random.sample(list(flags.items()), 3)
 
     for index, param_name in enumerate(["flag_0", "flag_1", "flag_2"]):
-
         try:
             flag_name = request.args[param_name]
+            flag_name = RENAMED_FLAGS.get(flag_name, flag_name)
             flag_data = flags[flag_name]
         except KeyError:
             pass
