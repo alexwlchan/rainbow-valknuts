@@ -4,7 +4,7 @@ This is a tiny web app for generating rainbow [valknuts](https://en.wikipedia.or
 
 > Hey, Nazis, I got a message for ya from Odin.
 >
-> ![](message_for_nazis.jpg)
+> ![Three overlapping triangles form a Valknut, with the stripes of the rainbow pride flag, the asexual pride flag, and the trans flag. They're on a black background with white text reading "Your cowardly bigotry is an affront to the Allfather".](message_for_nazis.jpg)
 
 It uses some code I wrote last year for [drawing with triangular coordinates in SVG](https://alexwlchan.net/2019/09/triangular-coordinates-in-svg/), then randomly selects three flags to mash up into an image.
 
